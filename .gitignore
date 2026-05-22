@@ -1,9 +1,17 @@
 /e2e
 /node_modules
 package-lock.json
+!server/package-lock.json
+!client/package-lock.json
 *.DS_Store
 /.idea
 /dist
 /hooks
 /platforms
 /plugins
+server/.env
+server/node_modules
+server/prisma/dev.db
+client/node_modules
+client/dist
+client/.env

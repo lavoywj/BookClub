@@ -1,0 +1,31 @@
+{
+  "name": "bookclub-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local API and database for the BookClub textbook exchange app.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "prisma": "prisma",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "prisma": "^6.19.3"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

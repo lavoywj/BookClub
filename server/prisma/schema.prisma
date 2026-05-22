@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String     @id @default(cuid())
+  username        String     @unique
+  email           String     @unique
+  passwordHash    String
+  name            String
+  phone           String?
+  major           String?
+  interestedCount Int        @default(0)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  books           Book[]
+  interests       Interest[]
+}
+
+model Book {
+  id            String     @id @default(cuid())
+  isbn          String
+  title         String
+  author        String
+  subject       String?
+  description   String?
+  originalPrice Decimal?
+  askingPrice   Decimal?
+  imageUrl      String?
+  status        String     @default("AVAILABLE")
+  ownerId       String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  owner         User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  interests     Interest[]
+
+  @@index([title])
+  @@index([author])
+  @@index([isbn])
+  @@index([ownerId])
+}
+
+model Interest {
+  id        String   @id @default(cuid())
+  userId    String
+  bookId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, bookId])
+  @@index([bookId])
+}
